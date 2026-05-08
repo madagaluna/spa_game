@@ -1,0 +1,277 @@
+import {BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { useState, useEffect } from 'react'
+import rand from './random.jsx'
+import './guess.css'
+// links set up the links the the router calls
+
+
+function Header()
+{
+	return (
+	<div className='header'>
+	<Nav />
+	</div>
+	)
+}
+
+function Nav()
+{
+	return (
+		<ul id='main-nav'>
+		<li><Link to="/">Game</Link></li>
+		<li><Link to="/settings">Settings</Link></li>
+        <li><Link to="/stats">Stats</Link></li>
+		</ul>
+	);
+}
+
+//props would be (props) not ({}}) but would have to add props.variable name.  6 {one} half.adozen too many details! game logic - initialize the variables that are only used here)
+
+// || return to prevent additional guesses after solved / out of guesses
+//local to game include: guess, msg, guessesLeft, gameOver, guessCount  
+
+function Game({  maxNumber, maxGuesses, answer,setAnswer,gamesPlayed,setGamesPlayed,gamesWon,setGamesWon, totalWinningGuesses, setTotalWinningGuesses
+})  
+{
+           
+    const [guess, setGuess] = useState('');
+    const [guessesLeft, setGuessesLeft] = useState(maxGuesses);
+    const [gameOver, setGameOver] = useState(false)
+    const[message, setMessage] = useState('');
+    const[guessCount, setGuessCount]=useState(0);
+   
+
+    
+
+   function checkGuess() {
+  const numGuess = Number(guess);
+  setGuessCount(guessCount +1);
+ 
+  if (guessesLeft <= 0 || gameOver) {
+    return;
+  }
+
+  if (numGuess === answer) {
+    setGamesPlayed(gamesPlayed + 1);
+    setGamesWon(gamesWon + 1 )
+    setTotalWinningGuesses(totalWinningGuesses + guessCount + 1);
+    setMessage("Who are you, Nostradamus?" + " You got it!");
+    setGameOver(true);
+    return;
+  }
+
+  const remaining = guessesLeft - 1;
+  setGuessesLeft(remaining);
+
+  if (remaining <= 0) {
+    setMessage("Wah-Wah! The answer was " + answer);
+    setGameOver(true);
+     setGamesPlayed(gamesPlayed + 1);
+     
+
+
+  } else if (numGuess < answer) {
+    setMessage("Too low, jo. Try again");
+  } else {
+    setMessage("Too high. Try again");
+  }
+   //     alert("Checking Guess: " + guess);
+   
+    }
+
+  // sets new state for new game
+function newGame() {
+    setAnswer(rand(maxNumber));
+    setGuess('');
+    setMessage('');
+    setGuessesLeft(maxGuesses);
+    setGuessCount(0);
+    setGameOver(false);
+}
+	return (
+		<div className='page'>
+		<Header />
+		<h1>Guess the number</h1>
+		<p>Are you a mindreader? Guess the number I am thinking of between 1 and {maxNumber}</p> 
+        <p>Guesses allowed:  {maxGuesses} </p>
+  
+          <input
+    type="number"
+    min='1'
+    value={guess}
+    onChange={(e) => 
+        setGuess((e.target.value))
+            }
+		/>
+    
+
+ <button onClick={checkGuess}>
+        Guess
+        </button>
+    
+        <p> Guesses left: {guessesLeft} </p>
+        <h3>{message}</h3>
+        
+  
+
+{gameOver && (
+    <button onClick={newGame}>
+    New Game
+    </button>
+)}
+<h6> Games Played:  {gamesPlayed} </h6>
+       <h5> the answer is {answer}  <br></br>...shhhhhhhh </h5>
+      
+
+        </div>
+	)
+
+}
+// using {destructured} instead of props, resetting state in MyApp through (e)vent in input buttons to (Number(e) converts the string to a number - could have done Number(guess) later - confusing) 
+function Settings ({ 
+    maxNumber,
+    setMaxNumber,
+    maxGuesses,
+    setMaxGuesses 
+})
+{
+
+	return (
+	<div className='header'>
+	<Header />
+    <h1>Settings</h1>
+    <h2><br></br>Set the highest number in the guessing range: </h2>
+    <input
+    
+  type="number"
+  min="1"
+  max="100"
+  value={maxNumber}
+  onChange={(e) => {
+    const limit = Number(e.target.value);
+
+    if (limit >= 1 && limit <= 100) {
+      setMaxNumber(limit);
+    }
+  }}
+/>
+
+<h2><br></br>Set how many guesses the player gets</h2>
+ <input
+    type="number"
+    min="1"
+  max="100"
+    value={maxGuesses}
+   onChange={(e) => {
+    const limit = Number(e.target.value);
+
+    if (limit >= 1 && limit <= 100) {
+      setMaxGuesses(limit);
+    }
+  }}
+/>
+<h4><br></br>Now return to game to demonstrate your <em>mindreading</em> prowess </h4>
+	</div>
+	)
+;
+}
+
+function Stats({ gamesPlayed, gamesWon, totalWinningGuesses }) {
+  const average =
+    gamesWon > 0
+      ? (totalWinningGuesses / gamesWon).toFixed(2)
+      : 0;
+      const battingAve =
+      gamesWon > 0 
+      ? ((gamesWon / gamesPlayed).toFixed(1) * 100)+ "%" :"0%";
+
+  return (
+    <div className="page">
+      <Header />
+
+      <h1>Stats</h1>
+      <p>Games played: {gamesPlayed}</p>
+      <p>Games won: {gamesWon}</p>
+      <h3>Average guesses for wins: {average}</h3>
+      <h3>Your batting average is: {battingAve}</h3>
+
+    </div>
+  );
+}
+
+
+
+function NotFound()
+{
+	return (
+	<div className='header'>
+	<Header />
+    <h1>Oh YES!</h1>
+		<p>You have stumbled on a secret page!  Please choose again.</p>
+	</div>
+	)
+}
+
+
+// creates the  state of objects and initial state that are given to components ,including the answer generated by rand(maxNumber), sets up the routes/layout and passes data to components, either through props (Game(props) return {props.maxNumber} or destructured variables Game ({maxNumber}) return {maxNumber} 
+function MyApp() 
+{
+      
+    const [maxNumber, setMaxNumber] = useState(0);
+         
+    const [maxGuesses, setMaxGuesses] = useState(0);
+   const [answer, setAnswer] =useState(rand(maxNumber));
+   
+    const [wins, setWins] = useState([0]);
+    const [totalWinningGuesses, setTotalWinningGuesses] = useState(0);
+    const[gamesPlayed, setGamesPlayed]= useState(0);
+    const[gamesWon, setGamesWon]= useState(0)
+
+  //  const[gameOver, setGameOver] =state(false);
+//This is how the components are rendered onto the page 
+	return (
+		<Router>
+			<h1>Welcome to "Are you a <em>Mind Reader</em>?"</h1>
+            <Routes>
+                <Route path="/" element={<Game 
+                  maxNumber={maxNumber}
+                    maxGuesses={maxGuesses}
+                    answer={answer}
+                    setAnswer={setAnswer}
+                    gamesPlayed={gamesPlayed}
+                    setGamesPlayed={setGamesPlayed}
+                    gamesWon={gamesWon}
+                    setGamesWon={setGamesWon}
+                    totalWinningGuesses={totalWinningGuesses}
+                    setTotalWinningGuesses={setTotalWinningGuesses}
+
+
+
+            
+            
+                />} />
+
+                <Route path="/settings" element={<Settings 
+                maxNumber={maxNumber}
+                setMaxNumber = {setMaxNumber}
+                maxGuesses={maxGuesses}
+                setMaxGuesses={setMaxGuesses}
+                
+                />} />
+                <Route path="/stats" element={<Stats
+                gamesPlayed={gamesPlayed}
+                gamesWon={gamesWon}
+                totalWinningGuesses={totalWinningGuesses}
+               
+                
+                />} />
+
+                <Route path="*" element={<NotFound />} />
+            </Routes>
+		</Router>
+	);
+}
+
+    
+
+export default MyApp
