@@ -1,8 +1,6 @@
 import {BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useState, useEffect } from 'react'
-import rand from './random.jsx'
-import './guess.css'
-// links set up the links the the router calls
+import './final_porchfest.css'
 
 
 function Header()
@@ -26,10 +24,6 @@ function Nav()
 	);
 }
 
-//props would be (props) not ({}}) but would have to add props.variable name.  6 {one} half.adozen too many details! Home logic - initialize the variables that are only used here)
-
-// || return to prevent additional guesses after solved / out of guesses
-//local to Home include: guess, msg, guessesLeft, HomeOver, guessCount  
 
 function Home()
 {
@@ -37,10 +31,6 @@ function Home()
 }           
     
 
-    
-
-
-// using {destructured} instead of props, resetting state in MyApp through (e)vent in input buttons to (Number(e) converts the string to a number - could have done Number(guess) later - confusing) 
 function register ({ 
     
 })
@@ -86,35 +76,23 @@ function NotFound()
 }
 
 
-// creates the  state of objects and initial state that are given to components 
 function MyApp() 
 {
       
- 
-  
 
-
-//This is how the components are rendered onto the page 
 	return (
 		<Router>
-			<h1>Welcome to "Are you a <em>Belmont Porchfest</em>?"</h1>
+			<h1>"Welcome to  <em>Belmont Porchfest</em>?"</h1>
             <Routes>
-                <Route path="/" element={<Home 
-                 
-
-
-
-            
+                <Route path="/" element={<Home           
             
                 />} />
 
                 <Route path="/register" element={<Register 
-                
-                
+                  
                 />} />
                 <Route path="/bands" element={<Bands
                 
-               
                 
                 />} />
 
