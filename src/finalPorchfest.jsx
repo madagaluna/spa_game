@@ -1,6 +1,6 @@
 import {BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useState, useEffect } from 'react'
-import './final_porchfest.css'
+import './finalPorchfest.css'
 
 
 function Header()
@@ -27,33 +27,67 @@ function Nav()
 
 function Home()
 {
-    return
+    return(
+	   <div className="page">
+      <Header />
+      <h1>Home Page</h1>
+    </div>
+	);
 }           
     
 
-function register ({ 
-    
-})
-{
+function Register({addBand}) {
 
-	return (
-	<div className='header'>
-	<Header />
-    <h1>Register</h1>
-    
+	const [name, setName] = useState('');  // don't need to be available elsewhere  
+	const[type, setType] = useState("");
 
+	function handleSubmit(e) {
+		e.preventDefault(); //so the page doesn't refresh
 
-	</div>
-	)
-;
+		const newBand = {
+			name: name,
+			type: type,
+			time: time,
+			location: location,
+			description: description,
+		};
+		addBand(newBand);
+	}
+
+  
+  return (
+    <div className="page">
+		<Header />
+
+      <h1>Registration</h1>
+      
+	  <form onSubmit={handleSubmit}>
+
+		<input
+		value={name}
+		onChange={(e) => setName(e.target.value)}
+		/ >
+			<input
+		value={type}
+		onChange={(e) => setType(e.target.value)}
+		/ >
+			<button type="submit">
+				Add Band
+			</button>
+
+	  </form>
+   
+    </div>
+  );
 }
-
-function Bands() {
+//passing in destructured 
+function Bands(bands) {
 
   
   return (
     <div className="page">
       <Header />
+	 
 
       <h1>Bands</h1>
    
@@ -64,11 +98,14 @@ function Bands() {
 
 
 
+
+
 function NotFound()
 {
 	return (
 	<div className='header'>
 	<Header />
+	 
     <h1>Why, Hello There!</h1>
 		<p>You have stumbled on a secret page!  Please choose again.</p>
 	</div>
@@ -78,7 +115,17 @@ function NotFound()
 
 function MyApp() 
 {
-      
+      const [bands, setBands] = useState ([{
+		name: "Fool's Gold",
+		type: "alt rock",
+		time: "12:30 PM",
+		location: "98 Oak Ave",
+		Description: "bal bal bla"
+	  }]);
+	
+	  function addBand(newBand) {
+		setBands([...bands, newBands]);  //adds new band object to ...bands array then gets passed into register as a fx
+	  } // brain breaking MyApp shares bands, register creates new band, register calls this fx, add band, addBand updates bands in MyApp so they are available to other components, like bands page where they are displayed.  CIRCULAR!
 
 	return (
 		<Router>
@@ -90,11 +137,14 @@ function MyApp()
 
                 <Route path="/register" element={<Register 
                   
+					addBand={addBand}
                 />} />
                 <Route path="/bands" element={<Bands
                 
+				 bands={bands}
                 
                 />} />
+				
 
                 <Route path="*" element={<NotFound />} />
             </Routes>
