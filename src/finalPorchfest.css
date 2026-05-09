@@ -19,3 +19,25 @@ h5{
 h5:hover{
     opacity: 0.5;
 }
+
+
+.form{
+  display:flex;  /* doesn't like inline block */
+    flex-direction: column;
+      max-width: 400px;  
+      gap: 12px;
+       }  
+
+       .form label{
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+       }
+
+.labelBtnGroup{
+
+    display:flex;
+    align-items: center;
+    gap: 12px;
+}
+
