@@ -37,10 +37,14 @@ function Home()
 
 <em> featuring 114 performance groups on 71 porches</em></h2>
 <h3> Check out some of our performers on FACEBOOK and INSTAGRAM</h3>
-<h4> Thank you to everyone who played, hosted, volunteered, and celebrated. You made Porchfest 2025 unforgettable.
-Want to know more about Porchfests? <br></br><br></br><br></br>
+<h4> Thank you to everyone who played, hosted, volunteered, and celebrated. You made Porchfest 2025 unforgettable.<br></br><br></br></h4>
 
-Check out this 13-minute documentary:<br></br><br></br> A Porchfest Journey </h4>
+<iframe
+width="560"
+height="315"
+src="https://www.youtube.com/embed/X4uBCUWVXpk?si=pC-_nN8jk6bj0OyE"
+title="A Porchfest Journey"
+allowFullScreen></iframe>
 
 <h6>Although Porchfest is free, there are costs associated with making it safe, fun, and comfortable.
 Please consider donating:
