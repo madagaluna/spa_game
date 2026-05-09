@@ -40,6 +40,10 @@ function Register({addBand}) {
 
 	const [name, setName] = useState('');  // don't need to be available elsewhere  
 	const[type, setType] = useState("");
+	const[time, setTime] = useState("");
+	const[location, setLocation] = useState("");
+	const[description, setDescription] = useState("");
+	
 
 	function handleSubmit(e) {
 		e.preventDefault(); //so the page doesn't refresh
@@ -61,19 +65,58 @@ function Register({addBand}) {
 
       <h1>Registration</h1>
       
-	  <form onSubmit={handleSubmit}>
+	  <form className="form" onSubmit={handleSubmit}>
+		< div className="labelBtnGroup">
+		<label>Performer Name 
 
 		<input
 		value={name}
 		onChange={(e) => setName(e.target.value)}
 		/ >
+		
+			
+</label>
+		<button type="submit">
+				Add Band
+			</button>
+
+
+	
+</div>
+
+
 			<input
+		value={type}
+		onChange={(e) => setType(e.target.value)}
+
+
+		/ >
+			<button type="submit">
+				Add Type of Music
+			</button>
+					<input
+		value={time}
+		onChange={(e) => setTime(e.target.value)}
+		/ >
+			<button type="submit">
+				Add time
+			</button>
+					<input
+		value={location}
+		onChange={(e) => setLocation(e.target.value)}
+		/ >
+			<button type="submit">
+				Add Locaton
+			</button>
+					<input
 		value={type}
 		onChange={(e) => setType(e.target.value)}
 		/ >
 			<button type="submit">
-				Add Band
+				Add Description
 			</button>
+			
+
 
 	  </form>
    
@@ -95,9 +138,6 @@ function Bands(bands) {
     </div>
   );
 }
-
-
-
 
 
 function NotFound()
@@ -129,7 +169,7 @@ function MyApp()
 
 	return (
 		<Router>
-			<h1>"Welcome to  <em>Belmont Porchfest</em>?"</h1>
+			<h1>"Welcome to  <em>Belmont Porchfest</em>!"</h1>
             <Routes>
                 <Route path="/" element={<Home           
             
