@@ -32,7 +32,7 @@ function Home()
       <Header />
       <h1>Home Page</h1>
 	  <h2>
-		Belmont’s Porchfest is a celebration of community through arts and music — performed by your friends and neighbors on porches, in yards, and all around town. Bike to a friend’s house to hear klezmer, wander into a jazz trio down the street, or stumble upon a circus show on someone’s front lawn.
+		Belmont’s Porchfest is a celebration of community through arts and music performed by your friends and neighbors on porches, in yards, and all around town. Bike to a friend’s house to hear klezmer, wander into a jazz trio down the street, or stumble upon a circus show on someone’s front lawn.
 <br></br><br></br>2025 was our biggest Porchfest yet 
 
 <em> featuring 114 performance groups on 71 porches</em></h2>
@@ -45,7 +45,7 @@ Check out this 13-minute documentary:<br></br><br></br> A Porchfest Journey </h4
 <h6>Although Porchfest is free, there are costs associated with making it safe, fun, and comfortable.
 Please consider donating:
 PayPal - The safer, easier way to pay online!
-via PayPal</h6>
+via <br></br> </h6> <h2>PayPal</h2>
 
 
     </div>
