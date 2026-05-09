@@ -31,6 +31,23 @@ function Home()
 	   <div className="page">
       <Header />
       <h1>Home Page</h1>
+	  <h2>
+		Belmont’s Porchfest is a celebration of community through arts and music — performed by your friends and neighbors on porches, in yards, and all around town. Bike to a friend’s house to hear klezmer, wander into a jazz trio down the street, or stumble upon a circus show on someone’s front lawn.
+<br></br><br></br>2025 was our biggest Porchfest yet 
+
+<em> featuring 114 performance groups on 71 porches</em></h2>
+<h3> Check out some of our performers on FACEBOOK and INSTAGRAM</h3>
+<h4> Thank you to everyone who played, hosted, volunteered, and celebrated. You made Porchfest 2025 unforgettable.
+Want to know more about Porchfests? <br></br><br></br><br></br>
+
+Check out this 13-minute documentary:<br></br><br></br> A Porchfest Journey </h4>
+
+<h6>Although Porchfest is free, there are costs associated with making it safe, fun, and comfortable.
+Please consider donating:
+PayPal - The safer, easier way to pay online!
+via PayPal</h6>
+
+
     </div>
 	);
 }           
@@ -67,55 +84,69 @@ function Register({addBand}) {
 
       <div id="centerForm">
 	  <form className="form" onSubmit={handleSubmit}>
+
+
 		< div className="labelBtnGroup">
 		<label>Performer Name 
 
 		<input
 		value={name}
 		onChange={(e) => setName(e.target.value)}
-		/ >
-		
-			
+		/ >			
 </label>
 		<button type="submit">
 				Add Band
 			</button>
-
-
 	
 </div>
 
-
+< div className="labelBtnGroup">
+		<label>Type of Music
 			<input
 		value={type}
 		onChange={(e) => setType(e.target.value)}
-
-
 		/ >
+</label>
 			<button type="submit">
 				Add Type of Music
 			</button>
+</div>
+
+< div className="labelBtnGroup">
+	<label>Performance Time
 					<input
 		value={time}
 		onChange={(e) => setTime(e.target.value)}
 		/ >
+			</label>
 			<button type="submit">
 				Add time
 			</button>
+</div>
+
+< div className="labelBtnGroup">
+	<label>Location
 					<input
 		value={location}
 		onChange={(e) => setLocation(e.target.value)}
 		/ >
+			</label>
 			<button type="submit">
 				Add Locaton
 			</button>
+</div>
+
+< div className="labelBtnGroup">
+	<label>Description
 					<input
-		value={type}
-		onChange={(e) => setType(e.target.value)}
+		value={description}
+		onChange={(e) => setDescription(e.target.value)}
 		/ >
+			</label>
 			<button type="submit">
 				Add Description
 			</button>
+			</div>
 			
 
 
