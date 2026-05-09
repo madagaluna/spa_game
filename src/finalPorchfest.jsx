@@ -64,7 +64,8 @@ function Register({addBand}) {
 		<Header />
 
       <h1>Registration</h1>
-      
+
+      <div id="centerForm">
 	  <form className="form" onSubmit={handleSubmit}>
 		< div className="labelBtnGroup">
 		<label>Performer Name 
@@ -119,6 +120,7 @@ function Register({addBand}) {
 
 
 	  </form>
+	  </div>
    
     </div>
   );

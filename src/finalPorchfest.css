@@ -1,4 +1,7 @@
 @charset "utf-8";
+
+
+
 h1{
 font-size: 24px;}
 ul#main-nav  {display:flex;  /* doesn't like inline block */
@@ -21,16 +24,23 @@ h5:hover{
 }
 
 
+#centerForm{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
 .form{
   display:flex;  /* doesn't like inline block */
-    flex-direction: column;
+    flex-direction:column;
       max-width: 400px;  
       gap: 12px;
        }  
 
        .form label{
+        font: verdana;
         display: flex;
-        flex-direction: column;
+       
+       
         gap: 4px;
        }
 
