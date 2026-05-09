@@ -23,6 +23,19 @@ h5:hover{
     opacity: 0.5;
 }
 
+ .logoImage{
+    width: 300px;
+background-color: green;
+
+    display: block;
+    margin: 0 auto; /* center - when used with block */
+ }
+ .logoBckGrnd{
+    background-color:black
+ }
+   
+.home{
+    background-color: rgb(196, 243, 196) }
 
 #centerForm{
     display: flex;

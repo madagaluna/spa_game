@@ -3,6 +3,64 @@ import { useState, useEffect } from 'react'
 import './finalPorchfest.css'
 
 
+// --- DATA ---
+const initialBands = [
+  {
+    name: "Fool’s Gold",
+    description: "We are a band of teenagers that want to spread the music of the Beatles and their musicality to our community",
+    image: "images/Fools gold.png",
+    type: "alt rock",
+    time: "Saturday · 12:30 PM",
+    location: "122 Cross Street",
+
+  },
+  {
+    name: "Tyler and Jamie",
+    description: "Tyler Tonomura-MacDonald AKA Woodrot, (formerly of Midnight Donut Cult,) and James MacDonald are a father",
+    image: "images/Jaime and Tyler.jpeg",
+    type: "rock n roll",
+    time: "Saturday · 11:00 AM",
+    location: "122 Cross Street",
+
+  },
+  {
+    name: "Blindsided",
+    description: "Blindsided is a band from the greater Boston area that plays funk, fusion, and some rock. We are new to the Boston music scene, and are excited to start making waves.",
+    image: "images/Blindside.jpg",
+    type: "punk",
+    time: "Saturday · 5:00 PM",
+    location: "134 Dalton Road",
+ 
+  },
+  {
+    name: "Anemoia",
+    description: "Indie rock with harmonies",
+    image: "images/Anemoia.jpeg",
+    type: "alt rock",
+    time: "Saturday · 3:30 PM",
+    location: "122 Cross Street",
+
+  },
+  {
+    name: "PaperJam",
+    description: "'Mature' (haha) folks playing blues, classic rock and country: Creedence Clearwater, Stevie Ray Vaughan, Elvis Presley, Rolling Stones, Johnny Rivers, Johnny Cash, ZZ Top etc.",
+    image: "images/paperjam.png",
+    type: "rock n roll",
+    time: "Saturday · 2:00 PM",
+    location: "134 Dalton Road",
+
+  },
+  {
+    name: "Redwire",
+    description: "Redwire is a Newton-based teen hard rock band with originals and some covers @redwire__ ",
+    image: "images/Redwire logo.jpg",
+    type: "brass",
+    time: "Saturday · 4:00 PM",
+    location: "134 Dalton Road",
+
+  },
+];
+
 function Header()
 {
 	return (
@@ -24,11 +82,11 @@ function Nav()
 	);
 }
 
-
+// gave the div two class names cuz I'm too lazy to make ids and it works.
 function Home()
 {
     return(
-	   <div className="page">
+	   <div className="page home"> 
       <Header />
       <h1>Home Page</h1>
 	  <h2>
@@ -46,10 +104,10 @@ src="https://www.youtube.com/embed/X4uBCUWVXpk?si=pC-_nN8jk6bj0OyE"
 title="A Porchfest Journey"
 allowFullScreen></iframe>
 
-<h6>Although Porchfest is free, there are costs associated with making it safe, fun, and comfortable.
+<h4>Although Porchfest is free, there are costs associated with making it safe, fun, and comfortable.
 Please consider donating:
 PayPal - The safer, easier way to pay online!
-via <br></br> </h6> <h2>PayPal</h2>
+via <br></br> </h4> <h5>BE OUR ROCKSTAR! </h5><h2>PayPal</h2>
 
 
     </div>
@@ -81,7 +139,7 @@ function Register({addBand}) {
 
   
   return (
-    <div className="page">
+    <div className="page register">
 		<Header />
 
       <h1>Registration</h1>
@@ -165,7 +223,7 @@ function Bands(bands) {
 
   
   return (
-    <div className="page">
+    <div className="page band">
       <Header />
 	 
 
@@ -206,7 +264,12 @@ function MyApp()
 
 	return (
 		<Router>
-			<h1>"Welcome to  <em>Belmont Porchfest</em>!"</h1>
+			<div className="logoBckGrnd">
+			<img
+			src="/spa_game/images/porchfestLogo2026.png "
+			alt="Belmont Porchfest Logo"
+			className="logoImage" />
+			</div>
             <Routes>
                 <Route path="/" element={<Home           
             
