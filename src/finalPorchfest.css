@@ -78,3 +78,19 @@ background-color: green;
     background-color: rgb(58, 3, 58);
  color: white;
  }
+.NotFound{
+    background-color: rgb(249, 209, 107);
+   
+
+}
+ .door-nav li{
+    background-color: rgb(128, 64, 18);
+    width: 120px;
+    height: 250px;
+    text-align: center;
+    list-style: none;
+    border: 3px solid rgb(40, 19, 4);
+    padding: 20px;
+   margin: 5px;
+
+ }

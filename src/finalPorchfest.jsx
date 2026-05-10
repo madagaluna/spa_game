@@ -95,7 +95,17 @@ function Home()
 <br></br><br></br>2025 was our biggest Porchfest yet 
 
 <em> featuring 114 performance groups on 71 porches</em></h2>
-<h3> Check out some of our performers on FACEBOOK and INSTAGRAM</h3>
+<h3> Check out some of our performers on 
+	
+	
+	<a href="https://www.facebook.com/BelmontPorchfest/" 
+	target="_blank"> FACEBOOK </a>
+	 and 
+	 <a href="https://www.instagram.com/belmontporchfest/" 
+	 target="_blank"> INSTAGRAM </a>.
+	
+	
+	</h3>
 <h4> Thank you to everyone who played, hosted, volunteered, and celebrated. You made Porchfest 2025 unforgettable.<br></br><br></br></h4>
 
 <iframe
@@ -119,9 +129,9 @@ via <br></br> </h4> <h5>BE OUR ROCKSTAR! </h5><h2>PayPal</h2>
 // --------------------------------------------------------------------------- PAGES ---
 // --------------------------------------------------------------------------- REGISTER ---
 
-function Register({addBand}) {
+function Register({addBand}) { //still have to clear form
 
-	const [name, setName] = useState('');  // don't need to be available elsewhere  
+	const [name, setName] = useState('');  // don't need to be available elsewhere cuz they are just in the registration form. tge real bands list is in addBand in myApp 
 	const[type, setType] = useState("");
 	const[time, setTime] = useState("");
 	const[location, setLocation] = useState("");
@@ -131,14 +141,14 @@ function Register({addBand}) {
 	function handleSubmit(e) {
 		e.preventDefault(); //so the page doesn't refresh
 
-		const newBand = {
+		const newBand = { //collects the temp data
 			name: name,
 			type: type,
 			time: time,
 			location: location,
 			description: description,
 		};
-		addBand(newBand);
+		addBand(newBand);  //sends it back to myApp
 	}
 
   
@@ -254,11 +264,25 @@ function Bands(bands) {
 function NotFound()
 {
 	return (
-	<div className='header'>
-	<Header />
+	<div className='page NotFound'>
+	
 	 
     <h1>Why, Hello There!</h1>
-		<p>You have stumbled on a secret page!  Please choose again.</p>
+		<p>You have stumbled upon a secret page! <br></br> Please choose one of the following doors:</p>
+		
+		<h5>The second <a href="https://youtu.be/JWWeaJA3JRA?si=CBFF02Qfmpc9jMLW" 
+	target="_blank"> Beale Text </a> requires a book cipher. <br></br><br></br>The <strong>key</strong> text: <br></br> 
+	<a href="https://books.google.com/books?id=BGm-xOfDaPoC&q=Les+Propheties#v=onepage&q=Les%20Propheties&f=false" 
+	target="_blank"><em> Les Prophéties, by Nostradamus </em></a> <br></br><br></br>
+	<strong>The rule is simple:</strong>
+	<br></br> Let n be the ciphertext number and locate the n‑th word in prophicies, calling it wₙ. <br></br>
+	Then compute k = n mod 3 to determine which letter to extract — first, second, or last, wrapping when needed. <br></br>
+	The resulting letters form the plaintext, with numbers and punctuation handled through a small set of digraphs. <br></br><br></br> 
+	 GOOD LUCK TREASURE HUNTERS!
+	 </h5>
+	<div className="door-nav">
+		<Nav />
+		</div>
 	</div>
 	)
 }
@@ -305,6 +329,8 @@ function MyApp()
 				
 
                 <Route path="*" element={<NotFound />} />
+
+				
             </Routes>
 		</Router>
 	);
