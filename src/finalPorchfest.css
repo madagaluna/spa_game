@@ -23,6 +23,7 @@ h5:hover{
     opacity: 0.5;
 }
 
+
  .logoImage{
     width: 300px;
 background-color: green;
@@ -35,7 +36,13 @@ background-color: green;
  }
    
 .home{
-    background-color: rgb(196, 243, 196) }
+    background-color: rgb(196, 243, 196);
+ }
+
+ .register {
+    background-color: rgb(215, 85, 9)
+ }
+
 
 #centerForm{
     display: flex;
@@ -64,3 +71,10 @@ background-color: green;
     gap: 12px;
 }
 
+
+ 
+
+ .band * {
+    background-color: rgb(58, 3, 58);
+ color: white;
+ }

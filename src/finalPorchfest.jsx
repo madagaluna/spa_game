@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import './finalPorchfest.css'
 
 
-// --- DATA ---
+// ------------------------------------------------------------------------- DATA object of arrays initializing bands ---
 const initialBands = [
   {
     name: "Fool’s Gold",
@@ -60,7 +60,7 @@ const initialBands = [
 
   },
 ];
-
+// ------------------------------------------------------------------------- HEADER ---
 function Header()
 {
 	return (
@@ -70,7 +70,7 @@ function Header()
 	</div>
 	)
 }
-
+// --------------------------------------------------------------------------- NAV ---
 function Nav()
 {
 	return (
@@ -81,7 +81,8 @@ function Nav()
 		</ul>
 	);
 }
-
+// --------------------------------------------------------------------------- PAGES ---
+// --------------------------------------------------------------------------- HOME ---
 // gave the div two class names cuz I'm too lazy to make ids and it works.
 function Home()
 {
@@ -113,7 +114,10 @@ via <br></br> </h4> <h5>BE OUR ROCKSTAR! </h5><h2>PayPal</h2>
     </div>
 	);
 }           
-    
+
+
+// --------------------------------------------------------------------------- PAGES ---
+// --------------------------------------------------------------------------- REGISTER ---
 
 function Register({addBand}) {
 
@@ -218,7 +222,11 @@ function Register({addBand}) {
     </div>
   );
 }
+
+// --------------------------------------------------------------------------- PAGES ---
+// --------------------------------------------------------------------------- BANDS ---
 //passing in destructured 
+
 function Bands(bands) {
 
   
@@ -226,15 +234,23 @@ function Bands(bands) {
     <div className="page band">
       <Header />
 	 
-
       <h1>Bands</h1>
+	  <div ClassName="bandLayout">
+		<h2>{bands.map(band.name)}</h2>
+
+
+
+
+
+	  </div>
    
 
     </div>
   );
 }
 
-
+// --------------------------------------------------------------------------- PAGES ---
+// --------------------------------------------------------------------------- NOT FOUND ---
 function NotFound()
 {
 	return (
@@ -247,20 +263,22 @@ function NotFound()
 	)
 }
 
+// --------------------------------------------------------------------------- MYAPP ---
+// ---------------------------------------------------------------------------  ---
+
+//
+ // MyApp  shares bands with bands component for grid card - coming,
+ // fx addband adds new band object to ...bands array then gets passed into register as a fx
+//	   register calls this fx, add band, addBand updates bands in MyApp so they are available to other components, like bands page where they are displayed.
 
 function MyApp() 
 {
-      const [bands, setBands] = useState ([{
-		name: "Fool's Gold",
-		type: "alt rock",
-		time: "12:30 PM",
-		location: "98 Oak Ave",
-		Description: "bal bal bla"
-	  }]);
+      const [bands, setBands] = useState (
+		initialBands);
 	
 	  function addBand(newBand) {
-		setBands([...bands, newBands]);  //adds new band object to ...bands array then gets passed into register as a fx
-	  } // brain breaking MyApp shares bands, register creates new band, register calls this fx, add band, addBand updates bands in MyApp so they are available to other components, like bands page where they are displayed.  CIRCULAR!
+		setBands([...bands, newBands]);  
+	  }  
 
 	return (
 		<Router>
