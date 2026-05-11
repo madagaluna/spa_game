@@ -129,9 +129,9 @@ Please consider donating:
 
 // --------------------------------------------------------------------------- PAGES / REGISTER / SET STATE
 
-function Register({addBand}) { //still have to clear form
+function Register({addBand}) { 
 
-	const [name, setName] = useState('');  // don't need to be available elsewhere cuz they are just in the registration form. tge real bands list is in addBand in myApp 
+	const [name, setName] = useState('');  // don't need to be available elsewhere cuz they are just in the registration form. These values update setBands through newBands, setBands update bands in myApp 
 	const[type, setType] = useState("");
 	const[time, setTime] = useState("");
 	const[location, setLocation] = useState("");
@@ -151,7 +151,7 @@ function Register({addBand}) { //still have to clear form
 			description: description,
 		};
 		alert("adding band");
-		addBand(newBand);  //sends it back to myApp
+		addBand(newBand);  //sends/passes the object back to myApp
 	}
 
   // --------------------------------------------------------------------------- PAGES / REGISTER 
@@ -315,7 +315,7 @@ function MyApp()
 		initialBands);
 	
 	  function addBand(newBand) {
-		setBands([...bands, newBands]);  
+		setBands([...bands, newBand]);  
 	  }  
 
 	return (
@@ -334,7 +334,7 @@ function MyApp()
                 <Route path="/register" 
 				element={<Register addBand={addBand}
                 />} />
-				
+
                 <Route path="/bands" element={<Bands
                 
 				 bands={bands}
