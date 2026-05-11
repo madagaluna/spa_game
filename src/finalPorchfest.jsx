@@ -66,7 +66,8 @@ function Header()
 {
 	return (
 	<div className='header'>
-        <h1>Belmont Porchfest 2026</h1>
+		
+
 	<Nav />
 	</div>
 	)
@@ -93,11 +94,10 @@ function Home()
       <h1>Home Page</h1>
 	  <h2>
 		Belmont’s Porchfest is a celebration of community through arts and music performed by your friends and neighbors on porches, in yards, and all around town. Bike to a friend’s house to hear klezmer, wander into a jazz trio down the street, or stumble upon a circus show on someone’s front lawn.
-<br></br><br></br>2025 was our biggest Porchfest yet 
+<br></br><br></br>Porchfest 2025 featured 
 
-<em> featuring 114 performance groups on 71 porches</em></h2>
+<em> 114 performances on 71 porches</em></h2>
 <h3> Check out some of our performers on 
-	
 	
 	<a href="https://www.facebook.com/BelmontPorchfest/" 
 	target="_blank"> FACEBOOK </a>
@@ -105,9 +105,8 @@ function Home()
 	 <a href="https://www.instagram.com/belmontporchfest/" 
 	 target="_blank"> INSTAGRAM </a>.
 	
-	
 	</h3>
-<h4> Thank you to everyone who played, hosted, volunteered, and celebrated. You made Porchfest 2025 unforgettable.<br></br><br></br></h4>
+
 
 <iframe
 width="560"
@@ -117,8 +116,8 @@ title="A Porchfest Journey"
 allowFullScreen></iframe>
 
 <h4>Although Porchfest is free, there are costs associated with making it safe, fun, and comfortable.
-Please consider donating:
-<br></br> </h4> <h5>BE OUR ROCKSTAR! </h5><h2>PayPal</h2>
+<br></br><strong>Please consider donating:</strong>
+</h4><h5>BE OUR ROCKSTAR! </h5><h2>PayPal</h2>
 
 
     </div>
@@ -143,6 +142,11 @@ function Register({addBand}) {
 	function handleSubmit(e) {
 		e.preventDefault(); //so the page doesn't refresh
 
+		if(!name.trim()) {
+			alert("Please enter a performer name");
+			return;
+		}
+
 		const newBand = { //collects the new (temp) data
 			name: name,
 			type: type,
@@ -152,6 +156,11 @@ function Register({addBand}) {
 		};
 		alert("adding band");
 		addBand(newBand);  //sends/passes the object back to myApp
+		setName("");  // clear form
+		setType("");
+		setTime("");
+		setLocation("");
+		setDescription("");
 	}
 
   // --------------------------------------------------------------------------- PAGES / REGISTER 
@@ -218,7 +227,7 @@ function Register({addBand}) {
 			</div>
 			
 
-<button type="submit">
+<button className="btn" type="submit">
 				Add Band
 			</button>
 	  </form>
@@ -243,31 +252,19 @@ function Bands({bands}) {
 
 	  <div className="bandsLayout">
 
-		{bands.map((band, i) => (
+		{Array.isArray(bands) && bands.map((band, i) => (
 
-		<div className="bandCard" key={i}>
-			
-
+		<div className="bandCard" key={i}>			
 		<h2>{band.name}</h2>
-		<p>
-<strong>Type: </strong>{band.type}
-		</p>
-		<p>
-<strong>Time: </strong>{band.time}
-		</p>
-		<p>
-<strong>Location: </strong>{band.location}
-		</p>
-		<p>
-<strong>Descripton: </strong>{band.description}
-		</p>
+		<p><strong>Type: </strong>{band.type}</p>
+		<p><strong>Time: </strong>{band.time}</p>
+		<p><strong>Location: </strong>{band.location}</p>
+		<p><strong>Descripton: </strong>{band.description}</p>
 		</div>
 				)
 			)
 		}
-
 	  </div>
-   
     </div>
   );
 }
@@ -303,48 +300,55 @@ function NotFound()
 // --------------------------------------------------------------------------- MYAPP ---
 // ---------------------------------------------------------------------------  ---
 
-//
- // MyApp  shares bands with bands component for grid card - coming,
+// checks if there are stored bands in local storage, adds those or initial bands. useEffect with local storage  }, [bands]) = when the bands change
  // fx addband adds new band object to ...bands array then gets passed into register as a fx
-//	   register calls this fx, add band, addBand updates bands in MyApp so they are available to other components, like bands page where they are displayed.
-
+// register calls this fx, add band, addBand updates bands in MyApp so they are available to other components, like bands page where they are displayed.
+// then MyApp  shares bands with bands component for grid card 
 
 function MyApp() 
 {
-      const [bands, setBands] = useState (
-		initialBands);
+      const [bands, setBands] = useState (() => {
+		const savedBands = localStorage.getItem("bands");
+		if(!savedBands || savedBands ==="undefined") {
+			return initialBands;
+	}
+	return JSON.parse(savedBands); }
+);
+
+	  useEffect(() => {
+    localStorage.setItem("bands", JSON.stringify(bands));
+  }, [bands]);
+
 	
-	  function addBand(newBand) {
-		setBands([...bands, newBand]);  
-	  }  
+	    function addBand(newBand) {
+    setBands([...bands, newBand]);
+  }
+
+	
 
 	return (
 		<Router>
 			<div className="logoBckGrnd">
 			<img
-			src="/spa_game/images/porchfestLogo2026.png "
+			src="/spa_game/images/porchfestLogo2026.png"
 			alt="Belmont Porchfest Logo"
 			className="logoImage" />
 			</div>
             <Routes>
-                <Route path="/" element={<Home           
-            
-                />} />
+                <Route path="/" element={<Home  />} />
 
                 <Route path="/register" 
-				element={<Register addBand={addBand}
+				element={<Register
+					 addBand={addBand}
                 />} />
 
                 <Route path="/bands" element={<Bands
-                
-				 bands={bands}
+                	 bands={bands}
                 
                 />} />
-				
 
                 <Route path="*" element={<NotFound />} />
 
-				
             </Routes>
 		</Router>
 	);
