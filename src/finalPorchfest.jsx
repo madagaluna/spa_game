@@ -7,56 +7,57 @@ import './finalPorchfest.css'
 const initialBands = [
   {
     name: "Fool’s Gold",
-    description: "We are a band of teenagers that want to spread the music of the Beatles and their musicality to our community",
-    image: "images/Fools gold.png",
     type: "alt rock",
-    time: "Saturday · 12:30 PM",
+    time: "12:30 PM",
     location: "122 Cross Street",
+	 description: "We are a band of teenagers that want to spread the music of the Beatles and their musicality to our community",
+    image: "images/Fools gold.png",
 
   },
   {
     name: "Tyler and Jamie",
-    description: "Tyler Tonomura-MacDonald AKA Woodrot, (formerly of Midnight Donut Cult,) and James MacDonald are a father",
-    image: "images/Jaime and Tyler.jpeg",
     type: "rock n roll",
-    time: "Saturday · 11:00 AM",
+    time: "11:00 AM",
     location: "122 Cross Street",
+	  description: "Tyler Tonomura-MacDonald AKA Woodrot, (formerly of Midnight Donut Cult,) and James MacDonald are a father",
+    image: "images/Jaime and Tyler.jpeg",
 
   },
   {
     name: "Blindsided",
-    description: "Blindsided is a band from the greater Boston area that plays funk, fusion, and some rock. We are new to the Boston music scene, and are excited to start making waves.",
-    image: "images/Blindside.jpg",
     type: "punk",
-    time: "Saturday · 5:00 PM",
+    time: "5:00 PM",
     location: "134 Dalton Road",
+	 description: "Blindsided is a band from the greater Boston area that plays funk, fusion, and some rock. We are new to the Boston music scene, and are excited to start making waves.",
+    image: "images/Blindside.jpg",
  
   },
   {
     name: "Anemoia",
-    description: "Indie rock with harmonies",
-    image: "images/Anemoia.jpeg",
     type: "alt rock",
-    time: "Saturday · 3:30 PM",
+    time: "3:30 PM",
     location: "122 Cross Street",
+	 description: "Indie rock with harmonies",
+    image: "images/Anemoia.jpeg",
 
   },
   {
     name: "PaperJam",
-    description: "'Mature' (haha) folks playing blues, classic rock and country: Creedence Clearwater, Stevie Ray Vaughan, Elvis Presley, Rolling Stones, Johnny Rivers, Johnny Cash, ZZ Top etc.",
-    image: "images/paperjam.png",
     type: "rock n roll",
-    time: "Saturday · 2:00 PM",
+    time: "2:00 PM",
     location: "134 Dalton Road",
+	description: "'Mature' (haha) folks playing blues, classic rock and country: Creedence Clearwater, Stevie Ray Vaughan, Elvis Presley, Rolling Stones, Johnny Rivers, Johnny Cash, ZZ Top etc.",
+    image: "images/paperjam.png",
 
   },
   {
     name: "Redwire",
-    description: "Redwire is a Newton-based teen hard rock band with originals and some covers @redwire__ ",
-    image: "images/Redwire logo.jpg",
     type: "brass",
-    time: "Saturday · 4:00 PM",
+    time: "4:00 PM",
     location: "134 Dalton Road",
+	 description: "Redwire is a Newton-based teen hard rock band with originals and some covers @redwire__ ",
+    image: "images/Redwire logo.jpg",
+//	
 
   },
 ];
@@ -117,8 +118,7 @@ allowFullScreen></iframe>
 
 <h4>Although Porchfest is free, there are costs associated with making it safe, fun, and comfortable.
 Please consider donating:
-PayPal - The safer, easier way to pay online!
-via <br></br> </h4> <h5>BE OUR ROCKSTAR! </h5><h2>PayPal</h2>
+<br></br> </h4> <h5>BE OUR ROCKSTAR! </h5><h2>PayPal</h2>
 
 
     </div>
@@ -126,8 +126,8 @@ via <br></br> </h4> <h5>BE OUR ROCKSTAR! </h5><h2>PayPal</h2>
 }           
 
 
-// --------------------------------------------------------------------------- PAGES ---
-// --------------------------------------------------------------------------- REGISTER ---
+
+// --------------------------------------------------------------------------- PAGES / REGISTER / SET STATE
 
 function Register({addBand}) { //still have to clear form
 
@@ -136,96 +136,91 @@ function Register({addBand}) { //still have to clear form
 	const[time, setTime] = useState("");
 	const[location, setLocation] = useState("");
 	const[description, setDescription] = useState("");
-	
+
+// --------------------------------------------------------------------------- PAGES / REGISTER 
+// --------------------------------------------------------------------------- Event HANDLER	
 
 	function handleSubmit(e) {
 		e.preventDefault(); //so the page doesn't refresh
 
-		const newBand = { //collects the temp data
+		const newBand = { //collects the new (temp) data
 			name: name,
 			type: type,
 			time: time,
 			location: location,
 			description: description,
 		};
+		alert("adding band");
 		addBand(newBand);  //sends it back to myApp
 	}
 
-  
+  // --------------------------------------------------------------------------- PAGES / REGISTER 
+// --------------------------------------------------------------------------- FORM
   return (
     <div className="page register">
 		<Header />
 
       <h1>Registration</h1>
 
+
       <div id="centerForm">
 	  <form className="form" onSubmit={handleSubmit}>
 
 
-		< div className="labelBtnGroup">
+		<div className="labelBtnGroup">
 		<label>Performer Name 
-
 		<input
 		value={name}
 		onChange={(e) => setName(e.target.value)}
-		/ >			
+		/>			
 </label>
-		<button type="submit">
-				Add Band
-			</button>
+	
 	
 </div>
 
-< div className="labelBtnGroup">
+<div className="labelBtnGroup">
 		<label>Type of Music
 			<input
 		value={type}
 		onChange={(e) => setType(e.target.value)}
-		/ >
+		/>
 </label>
-			<button type="submit">
-				Add Type of Music
-			</button>
+			
 </div>
 
-< div className="labelBtnGroup">
+<div className="labelBtnGroup">
 	<label>Performance Time
 					<input
 		value={time}
 		onChange={(e) => setTime(e.target.value)}
-		/ >
+		/>
 			</label>
-			<button type="submit">
-				Add time
-			</button>
+			
 </div>
 
-< div className="labelBtnGroup">
+<div className="labelBtnGroup">
 	<label>Location
 					<input
 		value={location}
 		onChange={(e) => setLocation(e.target.value)}
-		/ >
+		/>
 			</label>
-			<button type="submit">
-				Add Locaton
-			</button>
+		
 </div>
 
-< div className="labelBtnGroup">
+<div className="labelBtnGroup">
 	<label>Description
 					<input
 		value={description}
 		onChange={(e) => setDescription(e.target.value)}
-		/ >
-			</label>
-			<button type="submit">
-				Add Description
-			</button>
+		/>
+			</label>			
 			</div>
 			
 
-
+<button type="submit">
+				Add Band
+			</button>
 	  </form>
 	  </div>
    
@@ -233,34 +228,52 @@ function Register({addBand}) { //still have to clear form
   );
 }
 
-// --------------------------------------------------------------------------- PAGES ---
-// --------------------------------------------------------------------------- BANDS ---
-//passing in destructured 
+// --------------------------------------------------------------------------- PAGES /BANDS ---
 
-function Bands(bands) {
+
+
+function Bands({bands}) {
 
   
   return (
-    <div className="page band">
+    <div className="page bands">
       <Header />
 	 
       <h1>Bands</h1>
-	  <div ClassName="bandLayout">
-		<h2>{bands.map(band.name)}</h2>
 
+	  <div className="bandsLayout">
 
+		{bands.map((band, i) => (
 
+		<div className="bandCard" key={i}>
+			
 
+		<h2>{band.name}</h2>
+		<p>
+<strong>Type: </strong>{band.type}
+		</p>
+		<p>
+<strong>Time: </strong>{band.time}
+		</p>
+		<p>
+<strong>Location: </strong>{band.location}
+		</p>
+		<p>
+<strong>Descripton: </strong>{band.description}
+		</p>
+		</div>
+				)
+			)
+		}
 
 	  </div>
    
-
     </div>
   );
 }
 
-// --------------------------------------------------------------------------- PAGES ---
-// --------------------------------------------------------------------------- NOT FOUND ---
+// --------------------------------------------------------------------------- PAGES /NOT FOUND ---
+
 function NotFound()
 {
 	return (
@@ -295,6 +308,7 @@ function NotFound()
  // fx addband adds new band object to ...bands array then gets passed into register as a fx
 //	   register calls this fx, add band, addBand updates bands in MyApp so they are available to other components, like bands page where they are displayed.
 
+
 function MyApp() 
 {
       const [bands, setBands] = useState (
@@ -317,10 +331,10 @@ function MyApp()
             
                 />} />
 
-                <Route path="/register" element={<Register 
-                  
-					addBand={addBand}
+                <Route path="/register" 
+				element={<Register addBand={addBand}
                 />} />
+				
                 <Route path="/bands" element={<Bands
                 
 				 bands={bands}
