@@ -8,7 +8,7 @@ const initialBands = [
   {
     name: "Fool’s Gold",
     type: "alt rock",
-    time: "12:30 PM",
+    time: "12:00 PM",
     location: "122 Cross Street",
 	 description: "We are a band of teenagers that want to spread the music of the Beatles and their musicality to our community",
     image: "images/Fools gold.png",
@@ -17,9 +17,9 @@ const initialBands = [
   {
     name: "Tyler and Jamie",
     type: "rock n roll",
-    time: "11:00 AM",
+    time: "12:00 PM",
     location: "122 Cross Street",
-	  description: "Tyler Tonomura-MacDonald AKA Woodrot, (formerly of Midnight Donut Cult,) and James MacDonald are a father",
+	  description: "Tyler Tonomura-MacDonald AKA Woodrot, (formerly of Midnight Donut Cult,) and James MacDonald are a father and son duet performing guitar and vocal covers of some of the greatest hits of the last 40 years",
     image: "images/Jaime and Tyler.jpeg",
 
   },
@@ -35,7 +35,7 @@ const initialBands = [
   {
     name: "Anemoia",
     type: "alt rock",
-    time: "3:30 PM",
+    time: "3:00 PM",
     location: "122 Cross Street",
 	 description: "Indie rock with harmonies",
     image: "images/Anemoia.jpeg",
@@ -80,6 +80,7 @@ function Nav()
 		<li><Link to="/">Home</Link></li>
 		<li><Link to="/register">Register</Link></li>
         <li><Link to="/bands">Bands</Link></li>
+		<li><Link to="/schedule">Your Schedule</Link></li>
 		</ul>
 	);
 }
@@ -93,7 +94,7 @@ function Home()
       <Header />
       <h1>Home Page</h1>
 	  <h2>
-		Belmont’s Porchfest is a celebration of community through arts and music performed by your friends and neighbors on porches, in yards, and all around town. Bike to a friend’s house to hear klezmer, wander into a jazz trio down the street, or stumble upon a circus show on someone’s front lawn.
+		Belmont’s Porchfest is a celebration of community through arts and music performed by your friends and neighbors on porches, in yards, and all around town. Bike to a friend’s house to hear klezmer, wander to jazz trio down the street, or stumble upon a circus show on someone’s front lawn.
 <br></br><br></br>Porchfest 2025 featured 
 
 <em> 114 performances on 71 porches</em></h2>
@@ -142,8 +143,14 @@ function Register({addBand}) {
 	function handleSubmit(e) {
 		e.preventDefault(); //so the page doesn't refresh
 
-		if(!name.trim()) {
-			alert("Please enter a performer name");
+		if(!name.trim() ||  // something in each field or error alert
+		!type.trim() ||
+		!time.trim() ||
+		!location.trim() ||
+		!description.trim()
+		) 
+		{
+			alert("Please complete all the fieds");
 			return;
 		}
 
@@ -199,10 +206,17 @@ function Register({addBand}) {
 
 <div className="labelBtnGroup">
 	<label>Performance Time
-					<input
+					<select
 		value={time}
 		onChange={(e) => setTime(e.target.value)}
-		/>
+		><option value="">Select a time</option>
+			<option value="12:00 PM">12:00 PM</option>
+			<option value="1:00 PM">1:00 PM</option>
+			<option value="2:00 PM">2:00 PM</option>
+			<option value="3:00 PM">3:00 PM</option>
+			<option value="4:00 PM">4:00 PM</option>
+			<option value="5:00 PM">5:00 PM</option>
+			</select>
 			</label>
 			
 </div>
@@ -213,6 +227,7 @@ function Register({addBand}) {
 		value={location}
 		onChange={(e) => setLocation(e.target.value)}
 		/>
+
 			</label>
 		
 </div>
@@ -238,10 +253,33 @@ function Register({addBand}) {
 }
 
 // --------------------------------------------------------------------------- PAGES /BANDS ---
+//create search and sort array for bands using filter - preserves state
+// uses band array to create individual cards - makes sure new entrys are arrays
 
 
 
-function Bands({bands}) {
+function Bands({bands, favorites, toggleFavorite}) {
+	const[search, setSearch]=useState('');
+	const[sort, setSort]= useState("");
+
+	const showBands = bands
+	.filter((band) =>
+	band.name.toLowerCase().includes(search.toLowerCase())  ||
+	band.type.toLowerCase().includes(search.toLowerCase())  ||
+	band.location.toLowerCase().includes(search.toLowerCase()) 
+)
+.sort((a, b) => {
+	if (sort === "name") {
+		return a.name.localeCompare(b.name);
+
+	}
+	if (sort === "type") {
+		return a.type.localeCompare(b.type);
+
+	}
+	return 0;
+
+	});
 
   
   return (
@@ -250,9 +288,33 @@ function Bands({bands}) {
 	 
       <h1>Bands</h1>
 
+<div className="fauxBtn">
+<div className="bandControls">
+  <input
+    type="text"
+    placeholder="Search bands / music ..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+  />
+
+
+  <button
+  type="button"
+  onClick={() => setSearch("")}
+>Clear Search</button>
+
+<Link to="/schedule" className="scheduleButton">
+  View My Favorites
+</Link>
+</div>
+
+
+</div>
+
+
 	  <div className="bandsLayout">
 
-		{Array.isArray(bands) && bands.map((band, i) => (
+		{Array.isArray(bands) && showBands.map((band, i) => (
 
 		<div className="bandCard" key={i}>			
 		<h2>{band.name}</h2>
@@ -260,6 +322,14 @@ function Bands({bands}) {
 		<p><strong>Time: </strong>{band.time}</p>
 		<p><strong>Location: </strong>{band.location}</p>
 		<p><strong>Descripton: </strong>{band.description}</p>
+		<label>
+			FAVORITE
+			<input
+			type="checkbox"
+			checked={favorites.includes(band.name)}
+			onChange={()=> toggleFavorite(band.name)}
+			/>
+		</label>
 		</div>
 				)
 			)
@@ -268,6 +338,53 @@ function Bands({bands}) {
     </div>
   );
 }
+// --------------------------------------------------------------------------- PAGES /schedule ---
+function Schedule({ bands, favorites }) {
+  const favoriteBands = bands.filter((band) =>
+    favorites.includes(band.name)
+  );
+
+  
+  function conflict(time) {
+    const bandsAtSameTime = favoriteBands.filter((band) => band.time === time);
+    return bandsAtSameTime.length > 1;
+  }
+
+
+  return (
+    <div className="page schedule">
+      <Header />
+
+      <h1>My Schedule</h1>
+
+      {favoriteBands.length === 0 && (
+        <p>You can't stay home today! Go to the Bands page and select your favorite performers.</p>
+      )}
+
+      {favoriteBands.map((band, i) => (
+        <div className="scheduleCard" key={i}>
+          <h2>{band.name}</h2>
+          <p><strong>Time:</strong> {band.time}</p>
+          <p><strong>Location:</strong> {band.location}</p>
+          <p>Type: <em>{band.type}</em> </p>
+
+		  {conflict(band.time) && (
+            <p className="conflict">
+             <strong> Time conflict: </strong><em>you picked more than one performance at {band.time}
+           </em> </p>
+          )}
+
+        </div>
+      ))}
+	  <button onClick={() => window.print()}>
+  Print Schedule
+</button>
+
+    </div>
+  );
+}
+
+
 
 // --------------------------------------------------------------------------- PAGES /NOT FOUND ---
 
@@ -278,11 +395,11 @@ function NotFound()
 	
 	 
     <h1>Why, Hello There!</h1>
-		<p>You have stumbled upon a secret page! <br></br> Please choose one of the following doors:</p>
+		<p>You have stumbled upon a secret page! <br></br> Please choose one of the doors below to be transported to charted territory:</p>
 		
 		<h5>The second <a href="https://youtu.be/JWWeaJA3JRA?si=CBFF02Qfmpc9jMLW" 
 	target="_blank"> Beale Text </a> requires a book cipher. <br></br><br></br>The <strong>key</strong> text: <br></br> 
-	<a href="https://books.google.com/books?id=BGm-xOfDaPoC&q=Les+Propheties#v=onepage&q=Les%20Propheties&f=false" 
+	<a href="https://www.ebay.com/itm/157680580656?_skw=les+propheties+nostradamus&itmmeta=01KRC5V4FHGX8MW62ZXYQ5541S&hash=item24b67eb830:g:0XQAAeSw4g9o7FJ4&itmprp=enc%3AAQALAAABAGfYFPkwiKCW4ZNSs2u11xC27L5iqK2PnA2PkbfLbN6nodRyim4MQ%2BlkjrOoFPoyznzFabZPGaXSc4UBO%2BKZbI2k3JvDsLfVzDZnE4gDWeGeDowFa6q1LXh%2FWAWcK4FZjxxXzrwx6b8CvB81HgDRkXbTBoFEa5Asmfl3iN0G4axTiZF4%2BotF0m02XxFf4S%2FJd2RnPWRTV7w5%2B79vola0uTaIEpUJ0S94l1NfE6RBE7WC7HG8gzEngD23aGtA8JjyY1Pwozkd%2Bhhqcpoz%2BcWmQmbhpvBrsgUTbQGETX3DAY54DwlFV7e2qkRED0DLjXx0%2FW3gWMdQnzTxiPQt92FBp1c%3D%7Ctkp%3ABk9SR4TI7IXDZw" 
 	target="_blank"><em> Les Prophéties, by Nostradamus </em></a> <br></br><br></br>
 	<strong>The rule is simple:</strong>
 	<br></br> Let n be the ciphertext number and locate the n‑th word in prophicies, calling it wₙ. <br></br>
@@ -304,8 +421,10 @@ function NotFound()
  // fx addband adds new band object to ...bands array then gets passed into register as a fx
 // register calls this fx, add band, addBand updates bands in MyApp so they are available to other components, like bands page where they are displayed.
 // then MyApp  shares bands with bands component for grid card 
+//favorites uses an arry for the selections with a toggle fx and both passed Bands
 
 function MyApp() 
+	
 {
       const [bands, setBands] = useState (() => {
 		const savedBands = localStorage.getItem("bands");
@@ -322,9 +441,20 @@ function MyApp()
 	
 	    function addBand(newBand) {
     setBands([...bands, newBand]);
-  }
+  };
 
-	
+
+const [favorites, setFavorites] = useState([]);
+
+function toggleFavorite(bandName) {
+  if (favorites.includes(bandName)) {
+    setFavorites(favorites.filter((name) => name !== bandName));
+  } else
+	 {
+		 setFavorites([...favorites, bandName]);
+	 }
+}
+
 
 	return (
 		<Router>
@@ -344,10 +474,17 @@ function MyApp()
 
                 <Route path="/bands" element={<Bands
                 	 bands={bands}
+					 favorites={favorites}
+					 toggleFavorite={toggleFavorite}
                 
                 />} />
 
-                <Route path="*" element={<NotFound />} />
+                <Route path="/schedule" element={<Schedule
+				bands={bands}
+				favorites={favorites} />} />
+
+
+				 <Route path="*" element={<NotFound />} />
 
             </Routes>
 		</Router>
