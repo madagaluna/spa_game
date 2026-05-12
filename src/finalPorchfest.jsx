@@ -11,16 +11,20 @@ const initialBands = [
     time: "12:00 PM",
     location: "122 Cross Street",
 	 description: "We are a band of teenagers that want to spread the music of the Beatles and their musicality to our community",
-    image: "images/Fools gold.png",
+    instaLink: "",
+	 image: "/images/Fool's Gold.png",
 
   },
-  {
+  { 
+	
     name: "Tyler and Jamie",
     type: "rock n roll",
     time: "12:00 PM",
     location: "122 Cross Street",
 	  description: "Tyler Tonomura-MacDonald AKA Woodrot, (formerly of Midnight Donut Cult,) and James MacDonald are a father and son duet performing guitar and vocal covers of some of the greatest hits of the last 40 years",
-    image: "images/Jaime and Tyler.jpeg",
+   
+	 instaLink: "",
+	   image: "/images/Tyler and Jamie.jpeg",
 
   },
   {
@@ -29,7 +33,8 @@ const initialBands = [
     time: "5:00 PM",
     location: "134 Dalton Road",
 	 description: "Blindsided is a band from the greater Boston area that plays funk, fusion, and some rock. We are new to the Boston music scene, and are excited to start making waves.",
-    image: "images/Blindside.jpg",
+    instaLink:"https://www.instagram.com/reel/DN4EywJFAho/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+	 image: "/images/Blindside.jpg",
  
   },
   {
@@ -38,7 +43,8 @@ const initialBands = [
     time: "3:00 PM",
     location: "122 Cross Street",
 	 description: "Indie rock with harmonies",
-    image: "images/Anemoia.jpeg",
+	  instaLink:"https://www.instagram.com/reel/DNuImS33otX/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+    image: "/images/Anemoia.jpeg",
 
   },
   {
@@ -47,7 +53,8 @@ const initialBands = [
     time: "2:00 PM",
     location: "134 Dalton Road",
 	description: "'Mature' (haha) folks playing blues, classic rock and country: Creedence Clearwater, Stevie Ray Vaughan, Elvis Presley, Rolling Stones, Johnny Rivers, Johnny Cash, ZZ Top etc.",
-    image: "images/paperjam.png",
+    instaLink: "https://www.instagram.com/reel/DNjfT2nu5bF/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+	image: "/images/PaperJam.png",
 
   },
   {
@@ -56,10 +63,17 @@ const initialBands = [
     time: "4:00 PM",
     location: "134 Dalton Road",
 	 description: "Redwire is a Newton-based teen hard rock band with originals and some covers @redwire__ ",
-    image: "images/Redwire logo.jpg",
-//	
-
+	 instaLink: "",
+    image: "/images/Redwire.jpg",
   },
+  {	
+  name: "Surfhenge",
+    type: "Surf",
+    time: "4:00 PM",
+	location: "52 Washington St",
+	instaLink: "https://www.instagram.com/reel/DNy7LecwgKP/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+	image: `/images/surfhenge.png`,
+  }
 ];
 // ------------------------------------------------------------------------- HEADER ---
 function Header()
@@ -136,6 +150,7 @@ function Register({addBand}) {
 	const[time, setTime] = useState("");
 	const[location, setLocation] = useState("");
 	const[description, setDescription] = useState("");
+	const[instaLink, setInstaLink]= useState("");
 
 // --------------------------------------------------------------------------- PAGES / REGISTER 
 // --------------------------------------------------------------------------- Event HANDLER	
@@ -160,6 +175,7 @@ function Register({addBand}) {
 			time: time,
 			location: location,
 			description: description,
+			instaLink: instaLink,
 		};
 		alert("adding band");
 		addBand(newBand);  //sends/passes the object back to myApp
@@ -168,6 +184,7 @@ function Register({addBand}) {
 		setTime("");
 		setLocation("");
 		setDescription("");
+		setInstaLink("");
 	}
 
   // --------------------------------------------------------------------------- PAGES / REGISTER 
@@ -175,7 +192,12 @@ function Register({addBand}) {
   return (
     <div className="page register">
 		<Header />
-
+<div className="logoBckGrnd">
+			<img
+			src="/spa_game/images/410CommonKidsCopy2.jpg"
+			alt="Belmont Porchfest Logo"
+			className="commonKids" />
+			</div>
       <h1>Registration</h1>
 
 
@@ -240,6 +262,16 @@ function Register({addBand}) {
 		/>
 			</label>			
 			</div>
+
+
+			<div className="labelBtnGroup">
+	<label>InstaLink
+					<input
+		value={instaLink}
+		onChange={(e) => setInstaLink(e.target.value)}
+		/>
+			</label>			
+			</div>
 			
 
 <button className="btn" type="submit">
@@ -250,11 +282,19 @@ function Register({addBand}) {
    
     </div>
   );
+
+<div className="logoBckGrnd">
+			<img
+			src="/spa_game/images/410CommonKidsCopy2.jpg"
+			alt="Kids in lawn chairs wearing bike helmets watching a band at 410 Common Street"
+			className="commonKids" />
+			</div>
+
 }
 
 // --------------------------------------------------------------------------- PAGES /BANDS ---
-//create search and sort array for bands using filter - preserves state
-// uses band array to create individual cards - makes sure new entrys are arrays
+//create search and sort for bands using filter - preserves state -localCompare() rather than > JIC #Prince
+// MAP band array to create individual cards - makes sure new entrys are arrays
 
 
 
@@ -316,20 +356,36 @@ function Bands({bands, favorites, toggleFavorite}) {
 
 		{Array.isArray(bands) && showBands.map((band, i) => (
 
-		<div className="bandCard" key={i}>			
+	<div className="bandCard" key={i}>	
+	<img src={`/spa_game/images/${band.image}`}
+	alt={band.name}
+	
+	
+	className="bandImage" />
+	<div className="cardHeader">		
 		<h2>{band.name}</h2>
+		{band.instaLink && (<a href={band.instaLink}
+		target="_blank"
+		className="linkBtn">Check 'em out
+		</a>
+		) }	
+</div>
 		<p><strong>Type: </strong>{band.type}</p>
 		<p><strong>Time: </strong>{band.time}</p>
 		<p><strong>Location: </strong>{band.location}</p>
 		<p><strong>Descripton: </strong>{band.description}</p>
+		
+		<p>{band.image}</p>
+		<div className="checkBox">
 		<label>
 			FAVORITE
 			<input
-			type="checkbox"
+			type="checkbox" 
 			checked={favorites.includes(band.name)}
 			onChange={()=> toggleFavorite(band.name)}
 			/>
 		</label>
+		</div>
 		</div>
 				)
 			)
@@ -358,7 +414,7 @@ function Schedule({ bands, favorites }) {
       <h1>My Schedule</h1>
 
       {favoriteBands.length === 0 && (
-        <p>You can't stay home today! Go to the Bands page and select your favorite performers.</p>
+        <p>Who are you going to see? Go to the Bands page and select your favorite performers.</p>
       )}
 
       {favoriteBands.map((band, i) => (
